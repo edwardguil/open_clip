@@ -15,7 +15,7 @@ def _read_reqs(relpath):
     with open(fullpath) as f:
         return [s.strip() for s in f.readlines() if (s.strip() and not s.startswith("#"))]
 
-REQUIREMENTS = _read_reqs("requirements.txt")
+REQUIREMENTS = _read_reqs("requirements-training.txt")
 TRAINING_REQUIREMENTS = _read_reqs("requirements-training.txt")
 
 exec(open('src/open_clip/version.py').read())

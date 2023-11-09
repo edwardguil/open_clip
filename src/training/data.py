@@ -547,6 +547,20 @@ def get_data(args, preprocess_fns, epoch=0, tokenizer=None):
     preprocess_train, preprocess_val = preprocess_fns
     data = {}
 
+    if not os.path.exists(args.train_data):
+        raise ValueError(f"Train file: {args.train_data} dosen't exist")
+    
+    if not os.path.exists(args.val_data):
+        raise ValueError(f"Val file: {args.val_data} dosen't exist")
+    
+    with open(args.train_data, "r") as file:
+        args.train_data = file.readlines()[0]
+    
+    with open(args.val_data, "r") as file:
+        args.val_data = file.readlines()[0]
+
+
+
     if args.train_data or args.dataset_type == "synthetic":
         data["train"] = get_dataset_fn(args.train_data, args.dataset_type)(
             args, preprocess_train, is_train=True, epoch=epoch, tokenizer=tokenizer)
